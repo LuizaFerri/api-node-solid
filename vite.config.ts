@@ -3,8 +3,12 @@ import { defineConfig } from 'vitest/config'
 export default defineConfig({
   plugins: [
     (async () => {
-      const tsconfigPaths = (await import('vite-tsconfig-paths')).default;
-      return tsconfigPaths();
+      const { default: tsconfigPaths } = await import('vite-tsconfig-paths')
+      return tsconfigPaths()
     })(),
   ],
+  test: {
+    globals: true,
+    environment: 'node',
+  },
 })
